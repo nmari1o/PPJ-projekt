@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5; /* Svetlo siva boja */
+            color: #333; /* Tamnosiva boja */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #4682B4; /* Srednje plava boja */
+            color: white; /* Bijela boja */
+            padding: 15px;
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #FFF; /* Bijela boja */
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        li:hover {
+            background-color: #E0E0E0; /* Svetlo siva boja - tamnija nijansa */
+        }
+
+        p {
+            color: #777; /* Siva boja */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd; /* Svetlo siva boja */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4682B4; /* Srednje plava boja */
+            color: white; /* Bijela boja */
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4682B4; /* Srednje plava boja */
+            color: white; /* Bijela boja */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #2F4F4F; /* Tamnosmeđa boja */
+        }
+    </style>
+</head>
+<body>
+    <h1>POPIS ZADATAKA</h1>
+
+    {% if grouped_tasks %}
+        {% for category, tasks in grouped_tasks.items %}
+            <h2>{{ category }}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv zadatka</th>
+                        <th>Opis zadatka</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td>{{ task.name }}</td>
+                            <td>{{ task.description }}</td>
+                            <td>
+                                <form method="post" action="{% url 'main:task_completed' task.id %}">
+                                    {% csrf_token %}
+                                    <input type="checkbox" name="completed" {% if task.completed %}checked{% endif %} onchange="this.form.submit()">
+                                </form>
+                            </td>
+                            <td><a href="{% url 'main:delete_task' task.id %}">Obriši</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    {% else %}
+        <p>Nema unesenih zadataka</p>
+    {% endif %}
+    
+    <a href="{% url 'main:task_input' %}">Dodaj novi zadatak</a>
+    
+    </body>
+    </html>

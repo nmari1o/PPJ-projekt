@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unos Zadatka</title>
+    <style>
+        body {
+            background-color: white; /* Smeđa boja */
+            color: white; /* Bijela boja */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #4f0000; /* Bijela boja */
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #FFF8DC; /* Svijetlo smeđa boja */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2F4F4F; /* Tamnosmeđa boja */
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #A52A2A; /* Tamnosmeđa boja */
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2F4F4F; /* Tamnosmeđa boja */
+            color: white; /* Bijela boja */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #8B4513; /* Smeđa boja - tamnija nijansa */
+        }
+    </style>
+</head>
+<body>
+
+
+
+<form method="post" action="{% url 'main:task_input' %}">
+    <h1>Unos zadatka</h1>
+    {% csrf_token %}
+    <label for="id_name">Naziv zadatka:</label>
+    {{ form.name }}
+    
+    <label for="id_description">Opis zadatka:</label>
+    {{ form.description }}
+    
+    <label for="id_category">Kategorija zadatka:</label>
+    {{ form.category }}
+
+    <button type="submit">Dodaj Zadatak</button>
+</form>
+
+</body>
+</html>

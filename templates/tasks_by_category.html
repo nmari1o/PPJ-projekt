@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks by Category</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5; /* Svetlo siva boja */
+            color: #333; /* Tamnosiva boja */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #4682B4; /* Srednje plava boja */
+            color: white; /* Bijela boja */
+            padding: 15px;
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #FFF; /* Bijela boja */
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        li:hover {
+            background-color: #E0E0E0; /* Svetlo siva boja - tamnija nijansa */
+        }
+
+        p {
+            color: #777; /* Siva boja */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd; /* Svetlo siva boja */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4682B4; /* Srednje plava boja */
+            color: white; /* Bijela boja */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Zadaci u kategoriji {{ category }}</h1>
+
+{% if tasks %}
+    <table>
+        <thead>
+            <tr>
+                <th>Naziv zadatka</th>
+                <th>Opis zadatka</th>
+                <th>Kategorija</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.category }}</td>
+                    <td>{% if task.completed %}Completed{% else %}Not Completed{% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No tasks available in this category.</p>
+{% endif %}
+
+</body>
+</html>
